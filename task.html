@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Task Management</title>
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    h1 {
+      text-align: center;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: #f2f2f2;
+    }
+    
+    .delete-button {
+      padding: 2px 6px;
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Task Management</h1>
+  
+  <form id="task-form">
+    <input type="text" id="task-input" placeholder="Enter task">
+    <button type="submit">Add Task</button>
+  </form>
+  
+  <table id="task-table">
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Tasks will be dynamically added here -->
+    </tbody>
+  </table>
+  
+  <script>
+    // JavaScript code
+    const taskForm = document.getElementById('task-form');
+    const taskInput = document.getElementById('task-input');
+    const taskTable = document.getElementById('task-table');
+    const taskBody = taskTable.getElementsByTagName('tbody')[0];
+    
+    taskForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const taskText = taskInput.value.trim();
+      
+      if (taskText !== '') {
+        addTask(taskText);
+        taskInput.value = '';
+      }
+    });
+    
+    function addTask(taskText) {
+      const taskRow = document.createElement('tr');
+      
+      const taskCell = document.createElement('td');
+      taskCell.textContent = taskText;
+      
+      const actionCell = document.createElement('td');
+      
+      const deleteButton = document.createElement('button');
+      deleteButton.className = 'delete-button';
+      deleteButton.textContent = 'Delete';
+      
+      deleteButton.addEventListener('click', function() {
+        taskRow.remove();
+      });
+      
+      actionCell.appendChild(deleteButton);
+      
+      taskRow.appendChild(taskCell);
+      taskRow.appendChild(actionCell);
+      
+      taskBody.appendChild(taskRow);
+    }
+  </script>
+</body>
+</html>
